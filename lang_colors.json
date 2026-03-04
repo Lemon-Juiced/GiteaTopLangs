@@ -8,7 +8,9 @@
   "HTML": "#E34F26",
   "Java": "#E76F00",
   "JavaScript": "#F7DF1E",
+  "Makefile": "#E67E22",
   "PowerShell": "#012456",
+  "Roff": "#ECDEBE",
   "Ruby": "#CC342D",
   "Shell": "#121011",
   "V": "#5D87BF"
