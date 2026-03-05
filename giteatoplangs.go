@@ -21,6 +21,7 @@ type Config struct {
 	GiteaURL   string `json:"GITEA_URL"`
 	GiteaUser  string `json:"GITEA_USER"`
 	GiteaToken string `json:"GITEA_TOKEN"`
+	OutputDir  string `json:"OUTPUT_DIR"`
 }
 
 /**
@@ -221,7 +222,17 @@ func main() {
 		fmt.Println("  (no language data)")
 	}
 
-	outPath := filepath.Join(exePath, "languages_totals.json")
+	// Determine output directory: use config OUTPUT_DIR if provided,
+	// otherwise use the executable working directory.
+	outDir := exePath
+	if cfg.OutputDir != "" {
+		outDir = cfg.OutputDir
+	}
+	if err := os.MkdirAll(outDir, 0o755); err != nil {
+		fmt.Fprintf(os.Stderr, "failed to create output directory %s: %v\n", outDir, err)
+		os.Exit(1)
+	}
+	outPath := filepath.Join(outDir, "languages_totals.json")
 	outBytes, _ := json.MarshalIndent(totals, "", "  ")
 	if err := os.WriteFile(outPath, outBytes, 0644); err != nil {
 		fmt.Fprintf(os.Stderr, "failed to write %s: %v\n", outPath, err)

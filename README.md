@@ -13,10 +13,12 @@ Example:
 {
 	"GITEA_URL": "http://gitea.example.local/",
 	"GITEA_USER": "your-username",
-	"GITEA_TOKEN": "your-access-token"
+	"GITEA_TOKEN": "your-access-token",
+    "OUTPUT_DIR": "your-output-directory"
 }
 ```
 
 **Output**
 - Console: prints each language total and percentage of the grand total.  
-- JSON: writes `languages_totals.json` in the working directory.  
+- If `OUTPUT_DIR` is provided in `config.json`, the program will create that directory (if needed) and write `languages_totals.json` into it.  
+- If `OUTPUT_DIR` is omitted or empty, the program writes `languages_totals.json` into the current working directory where the program is run.  
